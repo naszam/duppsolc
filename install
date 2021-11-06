@@ -8,7 +8,7 @@ NC="\033[0m"
 
 echo -e ${GREEN}Installing ${PURPLE}duppsolc ${GREEN} to ${YELLOW}/usr/local/bin${GREEN}!${NC}
 
-DUPPSOLC='#!/usr/bin/env bash'
+DUPPSOLC='#!/usr/bin/env bash
 set -e
 
 GREEN="\033[0;32m"
@@ -26,7 +26,7 @@ else
 fi
 
 echo -e ${GREEN}Installing ${PURPLE}DappTools ${GREEN}solc-static-version ${YELLOW}${VERSION}${GREEN}!${NC}
-nix-env -f https://github.com/dapphub/dapptools/archive/master.tar.gz -iA solc-static-versions"${SOLC}"
+nix-env -f https://github.com/dapphub/dapptools/archive/master.tar.gz -iA solc-static-versions"${SOLC}"'
 
 BINARY="/usr/local/bin/dappsolc"
 echo "$DUPPSOLC" > $BINARY
