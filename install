@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+set -e
+
+GREEN="\033[0;32m"
+PURPLE="\033[0;35m"
+YELLOW="\033[0;33m"
+NC="\033[0m"
+
+echo -e ${GREEN}Installing ${PURPLE}duppsolc ${GREEN} to ${YELLOW}/usr/local/bin${GREEN}!${NC}
+
+DUPPSOLC='#!/usr/bin/env bash'
+set -e
+
+GREEN="\033[0;32m"
+PURPLE="\033[0;35m"
+YELLOW="\033[0;33m"
+NC="\033[0m"
+
+if [[ -z $1 ]]
+then
+    echo -e ${GREEN}Installing ${YELLOW}}ALL ${PURPLE}DappTools ${GREEN}solc-static-versions!${NC}
+    nix-env -f https://github.com/dapphub/dapptools/archive/master.tar.gz -iA solc-static-versions
+else
+    SOLC=$(echo $1 | sed "s/\./\_/g")
+    echo -e ${GREEN}Installing ${PURPLE}DappTools ${GREEN}solc-static-version ${YELLOW}$1${GREEN}!${NC}
+    nix-env -f https://github.com/dapphub/dapptools/archive/master.tar.gz -iA solc-static-versions.solc_${SOLC}
+fi
+
+BINARY="/usr/local/bin/dappsolc"
+echo "$DUPPSOLC" > $BINARY
+chmod +x $BINARY
