@@ -18,13 +18,15 @@ NC="\033[0m"
 
 if [[ -z $1 ]]
 then
-    echo -e ${GREEN}Installing ${YELLOW}}ALL ${PURPLE}DappTools ${GREEN}solc-static-versions!${NC}
-    nix-env -f https://github.com/dapphub/dapptools/archive/master.tar.gz -iA solc-static-versions
+    VERSION="ALL"
+
 else
-    SOLC=$(echo $1 | sed "s/\./\_/g")
-    echo -e ${GREEN}Installing ${PURPLE}DappTools ${GREEN}solc-static-version ${YELLOW}$1${GREEN}!${NC}
-    nix-env -f https://github.com/dapphub/dapptools/archive/master.tar.gz -iA solc-static-versions.solc_${SOLC}
+    VERSION=$1
+    SOLC=".solc_$(echo "$1" | sed -e "s/\./\_/g")"
 fi
+
+echo -e ${GREEN}Installing ${PURPLE}DappTools ${GREEN}solc-static-version ${YELLOW}${VERSION}${GREEN}!${NC}
+nix-env -f https://github.com/dapphub/dapptools/archive/master.tar.gz -iA solc-static-versions"${SOLC}"
 
 BINARY="/usr/local/bin/dappsolc"
 echo "$DUPPSOLC" > $BINARY
